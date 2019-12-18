@@ -85,16 +85,22 @@ Car.prototype.fill = function(gallons) {
 }
 
 Car.prototype.drive = function(distance) {
+    if (this.tank * this.milesPerGallon > distance) {
         this.odometer = this.odometer + distance;
         this.tank = this.tank - distance / this.milesPerGallon;
+    } else {
+        this.odometer = this.milesPerGallon * this.tank;
+        this.tank = 0;
+        return `I ran out of fuel at ${this.odometer} miles!`;
     }
-    /*
-      TASK 3
-        - Write a Baby constructor subclassing Person.
-        - Besides `name` and `age`, Baby takes a third argument to initialize `favoriteToy`.
-        - Besides the methods on Person.prototype, babies have the ability to `.play()`:
-            + Should return a string "Playing with x", x being the favorite toy.
-    */
+};
+/*
+  TASK 3
+    - Write a Baby constructor subclassing Person.
+    - Besides `name` and `age`, Baby takes a third argument to initialize `favoriteToy`.
+    - Besides the methods on Person.prototype, babies have the ability to `.play()`:
+        + Should return a string "Playing with x", x being the favorite toy.
+*/
 function Baby(name, age, favoriteToy) {
     this.name = name;
     this.age = age;
